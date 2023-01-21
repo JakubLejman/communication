@@ -20,16 +20,16 @@ public class Server {
 			}
 			System.out.println("SERVER: Server connection opened on port 4444.");
 
-			while (true) {//2
-			    Socket clientSocket = null;//2
-			    try {//2
-			        clientSocket = serverSocket.accept();//2
-			    } catch (IOException e) {//2
-			        System.err.println("SERVER: Accept failed: 4444, " + e);//2
-			        System.exit(1);//2
-			    }//2
-			    System.out.println("SERVER: Accepted client connecion on port 4444.");//2
-			    // kod obsługujący klienta
+			Socket clientSocket = null;
+			try {
+				// after this method server stops and waits for client connection
+				clientSocket = serverSocket.accept();
+				serverSocket.close();
+			} catch (IOException e) {
+				System.err.println("SERVER: Accept failed: 4444, " + e);
+				System.exit(1);
+			}
+			System.out.println("SERVER: Accepted client connecion on port 4444.");
 
 			try {
 				BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
@@ -57,5 +57,4 @@ public class Server {
 			}
 		}
 	}
-}
 }
